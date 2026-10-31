@@ -1,0 +1,30 @@
+{
+  "version": "16.21.1",
+  "updatedAt": "2026-10-31T13:34:41Z",
+  "lastSyncError": null,
+  "counts": {
+    "champions": 173,
+    "items": 859,
+    "runeTrees": 5,
+    "iconsCached": 173,
+    "itemIconsCached": 859,
+    "runeIconsCached": 67
+  },
+  "championDetail": {
+    "id": "Aatrox",
+    "spells": 4,
+    "spellIcons": 4,
+    "splashBytes": 129013,
+    "passiveIcon": true
+  },
+  "runes": {
+    "trees": 5,
+    "runeIcons": 67,
+    "runeIconsExpected": 67,
+    "frFile": true,
+    "frPrecisionName": "Précision",
+    "frConquerorName": "Conquérant"
+  },
+  "failures": [],
+  "success": true
+}

@@ -1,0 +1,26 @@
+/*
+ * Fiche rune : identité, méta (arbre/palier/type) et descriptions.
+ */
+
+.rune-detail-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rune-detail-chip {
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rune-detail-chip--keystone {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.08);
+  color: #7dd3fc;
+}

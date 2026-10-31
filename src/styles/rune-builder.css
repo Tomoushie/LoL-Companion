@@ -1,0 +1,522 @@
+/*
+ * Rune Builder (V0.7) : 3 pages de runes OP.GG dans l'onglet Runes.
+ */
+
+.rune-subtabs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rune-subtabs {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(10, 15, 28, 0.62);
+}
+
+.rune-subtab {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 6px 16px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.rune-subtab:hover {
+  color: var(--text-strong);
+  background: rgba(148, 178, 214, 0.06);
+}
+
+.rune-subtab[aria-selected="true"] {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.12);
+  box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.08);
+  color: #cffafe;
+}
+
+.rune-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.builder-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.builder-hint {
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.builder-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(160px, 0.8fr);
+  gap: 12px;
+}
+
+.builder-form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.builder-source-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(10, 15, 28, 0.45);
+}
+
+.builder-source-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.builder-source {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+}
+
+.builder-source-label {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.builder-source-sep,
+.builder-fetched-at {
+  color: var(--text-muted);
+}
+
+.builder-fetched-at {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.builder-cache {
+  padding: 1px 7px;
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 999px;
+  color: #7dd3fc;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.builder-warning {
+  color: var(--warn);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.builder-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.builder-empty {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.builder-result {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.builder-result-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.builder-result-title {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.builder-result-count {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.builder-pages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.builder-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.9), rgba(10, 15, 28, 0.9));
+}
+
+.builder-page-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.builder-page-scope {
+  color: #cffafe;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.builder-page-games {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.builder-page-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.builder-page-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.32);
+}
+
+.builder-page-stat-label {
+  color: var(--text-faint);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.builder-page-winrate,
+.builder-page-pickrate,
+.builder-page-wins {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.builder-page-winrate {
+  color: var(--ok);
+}
+
+.builder-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.builder-tree--primary {
+  border-color: rgba(34, 211, 238, 0.22);
+}
+
+.builder-tree-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.builder-tree-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.builder-tree-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.builder-tree-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.builder-tree-name {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.builder-tree-role {
+  margin-left: auto;
+  color: var(--text-faint);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.builder-rune-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.builder-tree--secondary .builder-rune-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.builder-rune {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 7px 5px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.4);
+  text-align: center;
+}
+
+.builder-rune--keystone {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(34, 211, 238, 0.08);
+  box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.08);
+}
+
+.builder-rune-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.builder-rune--keystone .builder-rune-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-color: rgba(34, 211, 238, 0.4);
+}
+
+.builder-rune-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.builder-rune-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.builder-rune-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.builder-rune-name {
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--text);
+  font-size: 9.5px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.builder-rune-badge {
+  align-self: center;
+  padding: 0 6px;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: 999px;
+  color: #7dd3fc;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.builder-rune-badge--minor {
+  border-color: var(--line);
+  color: var(--text-faint);
+}
+
+.builder-mods {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.builder-mods-label {
+  color: var(--text-faint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.builder-stat-mods {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.builder-stat-mod {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.32);
+}
+
+.builder-stat-mod-index {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 8px;
+}
+
+.builder-stat-mod-label {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 9.5px;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.builder-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid rgba(232, 121, 249, 0.3);
+  border-radius: var(--radius-lg);
+  background: rgba(232, 121, 249, 0.06);
+}
+
+.builder-error-title {
+  color: var(--warn);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.builder-error-message {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.builder-loading {
+  padding: 8px 0;
+}
+
+@media (max-width: 1180px) {
+  .builder-pages {
+    grid-template-columns: 1fr;
+  }
+
+  .builder-page {
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .builder-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .builder-rune-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

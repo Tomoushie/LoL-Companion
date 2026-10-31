@@ -1,0 +1,190 @@
+/*
+ * Primitives communes aux fiches détaillées (objet, rune).
+ * Les sections réutilisent `.detail-section` / `.detail-section-title`
+ * définies pour la fiche champion.
+ */
+
+.detail-hero-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.detail-icon-wrap {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.85);
+}
+
+.detail-icon-wrap--large {
+  width: 96px;
+  height: 96px;
+  border-radius: 14px;
+}
+
+.detail-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(148, 178, 214, 0.06) 0 8px,
+    transparent 8px 16px
+  );
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 24px;
+}
+
+.detail-identity {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.detail-entity-name {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.detail-entity-sub {
+  color: var(--text-faint);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.detail-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detail-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px 14px;
+}
+
+.detail-info-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 11px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.detail-info-label {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detail-info-value {
+  color: var(--text-strong);
+  font-size: 12.5px;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.detail-stat-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 6px 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.detail-stat {
+  padding: 6px 10px;
+  border: 1px solid rgba(34, 211, 238, 0.16);
+  border-radius: 7px;
+  background: rgba(34, 211, 238, 0.05);
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.detail-desc {
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.detail-desc--muted {
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+
+.detail-subtitle {
+  margin-top: 12px;
+  color: var(--text-faint);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.detail-empty {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.detail-empty-hint {
+  margin-top: 2px;
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.detail-note {
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1120px) {
+  .detail-hero-row {
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .detail-entity-name {
+    font-size: 22px;
+  }
+
+  .detail-icon-wrap--large {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -1,0 +1,755 @@
+/*
+ * Vue Profil (V0.5) : clé API Riot, formulaire Riot ID/plateforme,
+ * classements et liste des 10 derniers matchs.
+ */
+
+.profile-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-card {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+  box-shadow: var(--shadow-panel);
+}
+
+/* --- Clé API --------------------------------------------------------- */
+
+.riot-key-status-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.riot-key-status {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.riot-key-status[data-state="configured"] {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(34, 211, 238, 0.1);
+  color: #cffafe;
+}
+
+.riot-key-status[data-state="absent"] {
+  border-color: rgba(232, 121, 249, 0.36);
+  background: rgba(232, 121, 249, 0.07);
+  color: var(--warn);
+}
+
+.riot-key-status[data-state="error"] {
+  border-color: rgba(251, 113, 133, 0.4);
+  background: rgba(251, 113, 133, 0.08);
+  color: var(--danger);
+}
+
+.riot-key-status[data-state="unknown"] {
+  border-color: rgba(34, 211, 238, 0.35);
+  color: var(--accent-cyan);
+}
+
+.riot-key-source {
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.riot-key-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.riot-key-input,
+.riot-text-input,
+.riot-select {
+  height: 34px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.7);
+  color: var(--text-strong);
+  font-size: 12.5px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.riot-key-input {
+  flex: 1 1 240px;
+  min-width: 200px;
+}
+
+.riot-key-input::placeholder,
+.riot-text-input::placeholder {
+  color: var(--text-faint);
+}
+
+.riot-key-input:hover,
+.riot-text-input:hover,
+.riot-select:hover {
+  border-color: rgba(148, 178, 214, 0.28);
+}
+
+.riot-key-input:focus,
+.riot-text-input:focus,
+.riot-select:focus {
+  outline: none;
+  border-color: rgba(34, 211, 238, 0.55);
+  background: rgba(5, 7, 13, 0.92);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.12);
+}
+
+.riot-key-hint {
+  margin-top: 9px;
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+  max-width: 900px;
+}
+
+.riot-key-error,
+.riot-form-error,
+.riot-platforms-error {
+  margin-top: 8px;
+  color: var(--danger);
+  font-size: 11.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.riot-key-controls + .btn,
+.profile-card > .btn {
+  margin-top: 8px;
+}
+
+.profile-card > .btn[hidden] {
+  display: none;
+}
+
+/* --- Formulaire ------------------------------------------------------ */
+
+.riot-form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(210px, 0.8fr);
+  gap: 12px;
+}
+
+.riot-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.riot-field-label {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.riot-text-input,
+.riot-select {
+  width: 100%;
+}
+
+.riot-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* --- Résultat -------------------------------------------------------- */
+
+.profile-result {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 22px;
+  border: 1px dashed rgba(148, 178, 214, 0.2);
+  border-radius: 12px;
+  background: rgba(10, 15, 28, 0.35);
+}
+
+.profile-empty--warning {
+  border-color: rgba(232, 121, 249, 0.3);
+  background: rgba(232, 121, 249, 0.04);
+}
+
+.profile-empty-title {
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-empty-message {
+  max-width: 780px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.profile-empty-value {
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.profile-loading {
+  padding: 22px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: rgba(10, 15, 28, 0.35);
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.09), rgba(232, 121, 249, 0.05) 70%),
+    linear-gradient(170deg, rgba(16, 24, 40, 0.92), rgba(10, 15, 28, 0.92));
+}
+
+.riot-profile-name {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.riot-profile-platform {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.riot-cache {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.riot-cache-indicator {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.riot-cache-date {
+  color: var(--text-faint);
+  font-size: 10.5px;
+}
+
+.profile-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(232, 121, 249, 0.35);
+  border-radius: 10px;
+  background: rgba(232, 121, 249, 0.08);
+  color: #f5d0fe;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.profile-warning-icon {
+  flex: none;
+  margin-top: 1px;
+}
+
+.profile-warning-text {
+  overflow-wrap: anywhere;
+}
+
+.profile-section {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.profile-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.profile-section-title {
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.profile-section-count {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+/* --- Classements ----------------------------------------------------- */
+
+.riot-ranks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.riot-rank-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 11px;
+  background: rgba(5, 7, 13, 0.35);
+}
+
+.riot-rank-card--empty {
+  border-style: dashed;
+}
+
+.riot-rank-queue {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.riot-rank-tier {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.riot-rank-tier--empty {
+  color: var(--text-faint);
+}
+
+.riot-rank-lp {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.riot-rank-record {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.riot-rank-empty {
+  color: var(--text-faint);
+  font-size: 10.5px;
+}
+
+/* --- Matchs ---------------------------------------------------------- */
+
+.riot-matches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 8px;
+}
+
+.riot-match {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.35);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.riot-match:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.05);
+}
+
+.riot-match:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.riot-match[data-win="true"] {
+  border-left-color: rgba(52, 211, 153, 0.7);
+}
+
+.riot-match[data-win="false"] {
+  border-left-color: rgba(251, 113, 133, 0.65);
+}
+
+.riot-match-champion-icon-wrap {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.riot-match-champion-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.riot-match-champion-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.riot-match-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.riot-match-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.riot-match-champion-name {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.riot-match-result {
+  flex: none;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.riot-match[data-win="true"] .riot-match-result {
+  color: var(--ok);
+}
+
+.riot-match[data-win="false"] .riot-match-result {
+  color: var(--danger);
+}
+
+.riot-match-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.riot-match-kda {
+  color: var(--text);
+}
+
+.riot-match-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+@media (max-width: 1120px) {
+  .riot-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .riot-matches {
+    grid-template-columns: 1fr;
+  }
+
+  .riot-profile-name {
+    font-size: 21px;
+  }
+
+  .riot-cache {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* --- Progression personnelle (V0.6) ---------------------------------- */
+
+.progression-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.progression-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progression-overall {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+}
+
+.progression-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 11px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.progression-stat-label {
+  color: var(--text-faint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progression-stat-value {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.progression-winrate {
+  color: var(--ok);
+}
+
+.progression-server {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(10, 15, 28, 0.4);
+}
+
+.progression-server-label {
+  color: var(--text-muted);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.progression-server-value {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.progression-cache {
+  color: var(--text-faint);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.progression-warning {
+  padding: 8px 10px;
+  border: 1px solid rgba(232, 121, 249, 0.3);
+  border-radius: 8px;
+  background: rgba(232, 121, 249, 0.06);
+  color: var(--warn);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.progression-table-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.progression-table-title {
+  margin: 4px 0;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.progression-row {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.28);
+}
+
+.progression-row--head {
+  padding: 2px 8px;
+  border-color: transparent;
+  background: transparent;
+}
+
+.progression-row--champion {
+  grid-template-columns: 26px minmax(0, 1fr) 54px 52px 52px 58px 52px;
+}
+
+.progression-row--role {
+  grid-template-columns: minmax(0, 1fr) 54px 52px 52px;
+}
+
+.progression-head {
+  color: var(--text-faint);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progression-champion-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.progression-champion-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.progression-champion-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.progression-champion-name {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progression-role-name {
+  color: var(--text-strong);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.progression-value {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1180px) {
+  .progression-row--champion {
+    grid-template-columns: 24px minmax(0, 1fr) 46px 46px 46px 50px 46px;
+    gap: 6px;
+  }
+}
+

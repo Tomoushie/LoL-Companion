@@ -1,0 +1,269 @@
+/*
+ * Vue Champions : barre de recherche, compteur, grille de cartes.
+ * La grille reste une grille de cartes lisibles à partir de 112 px de large.
+ */
+
+.champ-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-field .icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 280px;
+  height: 34px;
+  padding: 0 30px 0 32px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(10, 15, 28, 0.74);
+  color: var(--text-strong);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.search-input::placeholder {
+  color: var(--text-faint);
+}
+
+.search-input:hover {
+  border-color: rgba(148, 178, 214, 0.28);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: rgba(34, 211, 238, 0.55);
+  background: rgba(10, 15, 28, 0.92);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.12);
+}
+
+.search-input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.champ-count {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* Filtre par classe Data Dragon (V0.9) -------------------------------- */
+
+.champ-class-filter {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.champ-class {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 11px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.champ-class:hover {
+  color: var(--text-strong);
+  background: rgba(148, 178, 214, 0.06);
+}
+
+.champ-class[aria-pressed="true"] {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.12);
+  color: #cffafe;
+}
+
+.champ-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.champ-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Grille -------------------------------------------------------------- */
+
+.champ-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 12px;
+  align-content: start;
+}
+
+/* Chaque carte est un bouton : ouvre la fiche champion (V0.2). */
+.champ-card {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.92), rgba(10, 15, 28, 0.92));
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.champ-card:hover {
+  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.1),
+    0 10px 24px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(34, 211, 238, 0.08);
+}
+
+.champ-card:focus-visible {
+  border-color: var(--accent-cyan);
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.champ-thumb {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(148, 178, 214, 0.1);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.9);
+}
+
+.champ-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.champ-icon--placeholder {
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(148, 178, 214, 0.05) 0 8px,
+    transparent 8px 16px
+  );
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 20px;
+  user-select: none;
+}
+
+.champ-key {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  color: rgba(229, 240, 255, 0.55);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.champ-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 0 2px 2px;
+}
+
+.champ-name {
+  display: block;
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.champ-title {
+  display: -webkit-box;
+  min-height: 2.7em;
+  overflow: hidden;
+  color: var(--text-faint);
+  font-size: 10.5px;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.champ-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.champ-tag {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 2px 6px;
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  border-radius: 4px;
+  background: rgba(34, 211, 238, 0.07);
+  color: #7dd3fc;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.champ-tag--empty {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-faint);
+}
+
+@media (max-width: 1240px) {
+  .search-input {
+    width: 230px;
+  }
+}

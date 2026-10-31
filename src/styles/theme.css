@@ -1,0 +1,24 @@
+/*
+ * Feuille de style principale de LoL BOT (thème sombre « cyber »).
+ * Agrège les tokens puis les différentes couches de composants.
+ * Aucune ressource réseau : polices système locales, aucune image distante.
+ */
+
+@import "./tokens.css";
+@import "./base.css";
+@import "./shell.css";
+@import "./global-search.css";
+@import "./states.css";
+@import "./champions.css";
+@import "./items.css";
+@import "./runes.css";
+@import "./rune-builder.css";
+@import "./details.css";
+@import "./champion-detail.css";
+@import "./item-detail.css";
+@import "./rune-detail.css";
+@import "./profile.css";
+@import "./riot-match-detail.css";
+@import "./meta.css";
+@import "./glossary.css";
+@import "./data.css";

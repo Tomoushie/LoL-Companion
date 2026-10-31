@@ -1,0 +1,355 @@
+/*
+ * Vue Runes : grille des arbres, panneau de l'arbre sélectionné,
+ * cartes de runes (keystones / mineures), résultats de recherche.
+ * Chaque carte de rune est un bouton qui ouvre la fiche rune (V0.4).
+ */
+
+/* Grille des arbres --------------------------------------------------- */
+
+.rune-trees {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.rune-tree-card {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.9), rgba(10, 15, 28, 0.9));
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.rune-tree-card:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+.rune-tree-card[aria-pressed="true"] {
+  border-color: rgba(34, 211, 238, 0.55);
+  background: linear-gradient(170deg, rgba(34, 211, 238, 0.1), rgba(10, 15, 28, 0.9));
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.15),
+    0 0 18px rgba(34, 211, 238, 0.1);
+}
+
+.rune-tree-card:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.rune-tree-icon-wrap {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.rune-tree-icon-wrap--large {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+}
+
+.rune-tree-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rune-tree-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+.rune-tree-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.rune-tree-name {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rune-tree-name-en {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.rune-tree-rune-count {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+/* Panneau de l'arbre sélectionné -------------------------------------- */
+
+.rune-panel {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+  box-shadow: var(--shadow-panel);
+}
+
+.rune-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rune-panel-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.rune-panel-title {
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.rune-panel-subtitle {
+  color: var(--text-faint);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.rune-panel-count {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.rune-section {
+  margin-top: 16px;
+}
+
+.rune-section-title {
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Cartes de runes ----------------------------------------------------- */
+
+.rune-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.rune-card {
+  appearance: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 11px;
+  background: rgba(5, 7, 13, 0.35);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.rune-card:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(34, 211, 238, 0.04);
+}
+
+.rune-card:focus-visible {
+  border-color: var(--accent-cyan);
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+.rune-card--result {
+  border-color: rgba(34, 211, 238, 0.16);
+}
+
+.rune-icon-wrap {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.rune-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rune-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+.rune-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rune-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.rune-name {
+  color: var(--text-strong);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.rune-name-en {
+  display: block;
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.rune-badge {
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text-faint);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rune-badge--keystone {
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(34, 211, 238, 0.08);
+  color: #7dd3fc;
+}
+
+.rune-parent {
+  align-self: flex-start;
+  padding: 1px 7px;
+  border: 1px solid rgba(232, 121, 249, 0.26);
+  border-radius: 999px;
+  background: rgba(232, 121, 249, 0.08);
+  color: #f0abfc;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rune-desc {
+  display: block;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+/* Résultats de recherche ---------------------------------------------- */
+
+.rune-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Chargement ---------------------------------------------------------- */
+
+.rune-tree-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(16, 24, 40, 0.55);
+}
+
+.rune-tree-skeleton-icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: auto;
+  border-radius: 9px;
+}
+
+.rune-tree-skeleton-lines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@media (max-width: 1120px) {
+  .rune-card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}

@@ -1,0 +1,271 @@
+===========
+STRUCTURE
+==========
+
+Tauri + Rust
+Hors ligne - Local
+Aucune donnée personnelles enregistrées
+Windows 10/11 (au début)
+
+==========
+VERSIONS
+==========
+
+Version "gratuite"
+-------------------
+Fiches champions : stats de base, sorts, builds recommandés, runes, win rate (depuis U.GG / OP.GG / Riot API).
+Fiches objets : stats, prix en or, builds qui l'utilisent.
+Fiches runes : stats, win rate, champions qui les utilisent.
+Tier list : classement des champions par rôle (top, jungle, mid, ADC, support).
+Compteur de matchs : tu entres ton pseudo, l'app récupère tes 10 derniers matchs et te donne tes stats (KDA, CS, vision, win rate).
+Recherche : un champion, un objet, une rune.
+Affichage des différentes cartes du jeu avec des points indiquant les éléments de la carte (tours, monstres, boss, coffres, etc).
+Liste des items avec leurs statistiques, les durées, les buffs, debuffs, prix, catégorie, date d'ajout au jeu, combinaison avec d'autres items, s'il est bon pour tel ou tel personnage, s'il est conseillé en early game ou end game ou dans quelle situation (gank, push, defense, attaque, embuscade, etc).
+Curseur personnalisé
+Onglet Equipes : liste de toutes les équipes professionnelles de LoL, en cliquant sur une équipe nous avons les joueurs, photo, personnages joués, âge, pays, langue, droitier/gaucher, trophées gagné, etc et les stats en compétition ou globales.
+-> Riot fournit une API Esports (https://esports-api.lolesports.com/). Elle donne les équipes, les joueurs, les ligues, et les matchs.
+Onglet Compétitions : dans cet onglet on peut retrouver toutes les compétitions LoL du T1, T2, T2, etc et les informations de ces compétitions avec un classement de chaque équipe selon la compétition et le niveau (T1, T2, etc).
+-> Leaguepedia : C'est la référence absolue pour l'esport LoL. Toutes les données (joueurs, équipes, trophées, historique, stats) sont là.
+-> Données statistiques : C'est un projet open-source qui fournit des CSV de toutes les stats des matchs pros (KDA, gold, dégâts, etc.).
+Classer les Champions par catégorie : Fighter, Tank, Support, Mage, Assassin, Marksman et par positionnement : Embuscade, groupe, distance, jungle, etc.
+Indiquer sur les listes de Champions les runes qui vont parfaitement avec le personnage.
+Combinaisons de runes : comme dans le jeu, permettre de sélectionner les runes pour voir les combinaisons entre-elles une fois activée, et voir les statistiques qu'elles apportent, sélectionner un Champion égalemente pour voir ce que les runes que l'on a ajouté apportent au Champion.
+Parmi la liste des objets, sur la fiche d'un objet, permettre d'ajouter un héro pour voir les effets de l'item sur le Champion : statistiques buffées ou débuffée, vie diminuée ou augmentée, sorts ou skills décuplés, etc.
+Onglet "Comparatif" : comparer jusqu'à 4 items entre-eux pour voir les statistiques - comparer jusqu'à 2 héros entre-eux pour voir les différences
+Ajouter système de "Synergie" : ajouter via le comparatif de héros & via la fiche d'un héro, "synergie" tout en bas avec les héros qui vont parfaitement avec celui que l'on regarde.
+Ranks : Ajouter les Rangs Classé - afficher notre Rang - afficher l'expérience requise pour atteindre le rang suivant - afficher l'expérience requise pour chaque rang intégré à l'app, ainsi on peut voir que le dernier rang nécessite X XP pour l'atteindre + le nombre de LP nécessaire.
+Ajout de l'application en barre de tâche
+Permettre de réduire l'app en barre de tâche + demande de confirmation + bouton à cocher pour retenir le choix + bouton à cocher pour ne plus redemander à chaque fois
+Bouton "update" pour mettre à jour l'application
+Bouton "refresh" pour mettre à jour les données de classement, rang, ligues et données volatiles avec l'application + mise à jour automatique toutes les heures.
+Modifier + améliorer le logo actuel de l'application LoL BOT.
+Animation des personnages sur leur image de profil dans l'onglet "champions" (si possible)
+Le "Rune Builder" (Constructeur de runes interactif) : Ce que c'est : Une interface où tu choisis un champion, et l'app te propose automatiquement 3 pages de runes (basées sur les stats Data Dragon). Tu peux aussi créer ta propre page (choisir 1 arbre principal, 1 secondaire, et cliquer sur les runes).Pourquoi: C'est la fonctionnalité n°1 que les débutants cherchent. Ils ne savent pas quoi prendre comme runes.
+Le "Build Recommender" (Recommandation de build). Ce que c'est : Sur la fiche d'un champion, afficher les 3 objets les plus achetés (basé sur les stats des joueurs, pas sur U.GG). Pourquoi : Un débutant ne sait pas quoi acheter. C'est le chaînon manquant entre la fiche champion et l'onglet Objets.
+Le "Comparateur de héros" (Hero Comparison). Ce que c'est : Un onglet où tu peux comparer 2 à 4 champions côte à côte (comme le Comparateur d'objets de RS3Bot). Pourquoi : "Qui est le meilleur entre Aatrox et Darius ?". C'est la question que se posent tous les débutants.
+La "Tier List Interactive". Ce que c'est : Un onglet qui affiche les champions classés par tier (S, A, B, C, D) et par rôle (top, jungle, mid, ADC, support), avec la possibilité de filtrer. Pourquoi : C'est très visuel et ça donne une vue d'ensemble de la méta.
+La "Fiche de Match" (Match Recap). Ce que c'est : Quand tu entres ton pseudo, l'app récupère ton dernier match et affiche un résumé : KDA, CS, vision score, durée, résultat, les 10 champions joués. Pourquoi : C'est la première étape vers le suivi de progression. Ça donne une vue rapide de ta dernière game.
+Le "Glossaire LoL". Ce que c'est : Un petit dictionnaire intégré (accessible via un bouton "?" dans la barre de titre) qui explique les termes : "Qu'est-ce que le CS ?", "Qu'est-ce que le KDA ?", "Qu'est-ce qu'un gank ?". Pourquoi : C'est exactement ce qu'un débutant (comme toi) cherche. Ça évite de chercher sur Google.
+Le "Mode Entraînement" (Practice Mode) : Ce que c'est : Un mode où l'app te pose des questions ( "Quel est le rôle de ce champion ?", "Quel objet est bon pour ce champion ?") et te corrige. Pourquoi : C'est éducatif, et ça donne une raison de revenir dans l'app.
+Le "Timer de Buffs" (Buff Timer). Ce que c'est : Un petit timer (visible dans l'app) qui te dit quand le prochain Dragon/Baron va spawn (basé sur l'heure de début de la game). Pourquoi : C'est très utile en jeu, et ça ne nécessite pas d'API (juste un timer local).
+Le "Checklist de Game". Ce que c'est : Une petite checklist (avant la game) : "As-tu pris tes runes ?", "As-tu acheté ton premier objet ?", "As-tu posé ta première balise ?". Pourquoi : Ça aide les débutants à ne rien oublier.
+Le "Compteur de Wins/Losses" (Win/Loss Tracker). Ce que c'est : Un compteur simple (local) qui te dit "Tu as gagné 3 games d'affilée, tu es en win streak !" ou "Tu as perdu 4 games, prends une pause.". Pourquoi : C'est motivant (win streak) et protecteur (loss streak → pause).
+Le "Wiki Intégré": Ce que c'est : Une version hors-ligne du RuneScape Wiki (ou plutôt du LoL Wiki), intégrée dans l'app, avec recherche. Pourquoi : Ça évite d'ouvrir un navigateur pour chercher "Qu'est-ce que le Baron Nashor ?".
+
+Version "premium" (5 €/mois)
+-----------------------------
+Alertes de patch : « Le patch 14.5 sort demain, voici les 5 champions qui vont être buffés ».
+Suivi de progression : tu enregistres tes matchs, l'app te donne ton win rate par champion, par rôle, par serveur. Permettre d'exporter les enregistrement en MKV ou en MP4.
+Builds personnalisés : tu crées tes propres builds, l'app les compare aux builds méta.
+Prédiction de win rate : basée sur ton historique + les stats du patch (comme le Predictor de RS3Bot).
+Multi-comptes : gère plusieurs comptes LoL (comme le compte local de RS3Bot).
+Prédiction de win rate (basée sur les stats des champions).
+Simulateur de build (quel build est le plus rentable en or).
+Détection de "smurfs" (basée sur les stats, comme les sites existants).
+Analyse de drafts (quel champion pick en fonction de l'équipe adverse).
+Système de prédiction:
+- Prédiction de win rate - Stats du champion + build + runes + patch - « Si tu prends ce champion avec ce build, ton win rate sera de X % »
+- Prédiction de compo - Draft en cours (les 5 picks de ton équipe + les 5 picks d'en face) - « Avec cette compo, tu as 60 % de chances de gagner »
+- Prédiction de difficulté - MMR des 10 joueurs + historique des matchs - « Cette game va être difficile, ton équipe est en dessous en MMR »
+- Prédiction de pick adverse - Historique des patchs + compositions méta - « L'adversaire va probablement pick ce champion, prépare-toi »
+- Prédiction de stratégie - Analyse des rotations, des objectifs, des timings - « Ton équipe doit focus les dragons, pas les tourelles »
+- Prédiction de build optimal - Stats des objets + win rate par build - « Ce build est meilleur que celui que tu utilises »
+- Prédiction de Lp - Prédiction du nombre de LP en cas de victoire ou de défaite sur notre prochaine partie
+- Prédiction de Rang - Prédiction de l'impact en cas de victoire ou de défaite sur notre prochaine partie sur notre rang actuel
+- Prédiction de Classement - Prédiction de l'impact en cas de victoire ou de défaite sur notre prochaine partie sur notre Classement actuel
+Estimation du MMR / MMR caché
+Conseils automatiques en fonction des statistiques enregistrées
+Lecteur HD intégré : permet de revoir nos matchs directement dans l'app ou revoir les enregistrements des parties.
+Minion (pet) personnalisé : tu peux le caresser, le câliner, le déplacer, l'enlever, cliquer dessus
+Le "Coaching Personnalisé". Ce que c'est : L'app analyse tes 10 derniers matchs et te donne 3 conseils personnalisés : "Ton CS moyen est de 45, essaie de viser 60", "Tu meurs trop en early game, joue plus safe". Pourquoi : C'est LE truc que les débutants veulent. C'est du coaching automatique.
+Le "Draft Analyzer" (Analyseur de draft). Ce que c'est : Pendant la sélection des champions, l'app te dit "Ton équipe a 62 % de chances de gagner, mais il te manque un tank". Pourquoi : C'est très avancé, mais très utile pour les joueurs compétitifs.
+Le "Smurf Detector" (Détecteur de smurfs). Ce que c'est : L'app détecte si un joueur en face est un smurf (un joueur expérimenté sur un nouveau compte) en analysant son historique. Pourquoi : C'est très demandé par les joueurs, mais très controversé (Riot n'aime pas ça).
+Le "Replay Analyzer" (Analyseur de replay). Ce que c'est : L'app lit un fichier .rofl (replay) et te donne des stats détaillées (rotations, objectifs, erreurs). Pourquoi : C'est impossible (Riot ne permet pas de lire les .rofl).
+Le "Build Simulator" (Simulateur de build).  Ce que c'est : L'app te permet de simuler un build (6 objets + runes) et de voir les stats finales (AD, AP, PV, etc.) de ton champion. Pourquoi : C'est très utile pour comparer deux builds.
+Le "MMR Tracker" (Suivi du MMR caché). Ce que c'est : L'app estime ton MMR (basé sur tes LP gagnés/perdus) et te dit "Ton MMR est de 1 250, tu es à 50 LP du prochain rang". Pourquoi : C'est le Graal (ce que tous les joueurs veulent), mais c'est une estimation, pas une vérité.
+Le "Pet Minion". Ce que c'est : Un petit Minion animé qui vit dans l'app, que tu peux caresser, déplacer, nourrir. Pourquoi : C'est mignon et ça donne une personnalité à l'app.
+Le "Mode Coach" (Pour les équipes): Ce que c'est : Une vue dédiée aux coachs d'équipes, qui montre les stats de tous les joueurs de l'équipe, les drafts, les compositions. Pourquoi : C'est une niche, mais une niche qui paie (les équipes ont de l'argent).
+
+Version "hors-cadre" - Hybride : Fonctionnalités payantes avancées & basique gratuites
+---------------------------------------------------------------------------------------
+** Le "Mode Streamer" (Overlay pour OBS): Ce que c'est : Une petite fenêtre transparente (overlay) que le streamer peut afficher par-dessus son jeu, montrant ses stats en temps réel (KDA, CS, win rate). Pourquoi : C'est très demandé par les streamers, et ça donne une visibilité à ton app :
+- Gratuit : Un overlay simple qui affiche ton pseudo, ton rang, ton win rate et ton dernier match. C'est facile à faire, et ça donne une visibilité énorme à l'app (chaque streamer qui l'utilise fait de la pub gratuite).
+- Premium (5 €/mois) : Un overlay personnalisable (couleurs, position, taille), avec des stats en temps réel (KDA, CS, or), et la possibilité de choisir les widgets (win rate, dernier match, tier list, etc.).
+
+=========
+THEME :
+=========
+
+Le thème or/brun de RS3Bot est lié à l'univers médiéval-fantastique de RuneScape. Pour LoL, il faut un design plus sombre, plus "cyber", avec des couleurs par rôle (top = rouge, jungle = vert, mid = bleu, ADC = jaune, support = violet). C'est un vrai travail de design, pas juste un changement de couleurs.
+
+============
+TECHNIQUE :
+============
+
+Système de prédiction : Comment on peut le faire (techniquement)
+----------------------------------------------------------------
+
+La brique existante : predictor.rs
+Tu as déjà un moteur de prédiction OLS (régression linéaire) qui fonctionne. Il a été conçu pour les prix, mais il est générique : il prend une série temporelle, calcule la pente, l'intercept, R², σ, et prédit les valeurs futures.
+
+On peut le réutiliser tel quel pour :
+Prédiction de win rate : au lieu de prédire un prix, on prédit un win rate (basé sur les stats du champion + les stats du patch).
+Prédiction de difficulté : au lieu de prédire un prix, on prédit un score de difficulté (basé sur le MMR des joueurs, l'historique des matchs, etc.).
+Prédiction de pick : au lieu de prédire un prix, on prédit la probabilité qu'un champion soit pick (basé sur la méta du patch, les compositions historiques).
+
+Ce n'est pas la même donnée, mais c'est la même mathématique. Tu n'as pas à réécrire predictor.rs, juste à changer ce qu'il prend en entrée et ce qu'il produit en sortie.
+
+Les données nécessaires (toutes gratuites)
+
+Sources
+--------
+Data Dragon	Stats des champions, objets, runes, sorts	JSON (gratuit, pas de clé)
+Riot API	Matchs, rangs, MMR, stats des joueurs	JSON (clé API gratuite, 100 req/2 min)
+Community Dragon	Assets (icônes, splash arts)	JSON / PNG
+U.GG / OP.GG (scraping)	Win rates, builds méta, tier lists	HTML (mais scraping fragile, à éviter)
+
+La bonne approche : utiliser Riot API + Data Dragon pour les données brutes, et calculer toi-même les win rates et les prédictions.
+Ne dépends pas de U.GG ou OP.GG (ils peuvent changer leur HTML, ou te bloquer). <- tenter d'utiliser U.GG et OP.GG quand même, ils peuvent être utile.
+
+Onglet "Prédiction de compo"
+----------------------------
+Tu entres les 5 picks de ton équipe et les 5 picks d'en face (ou l'app les récupère depuis ta game en cours).
+
+L'app calcule la probabilité de victoire de chaque équipe, basée sur :
+
+Le win rate de chaque champion dans ce patch.
+
+La synergie entre les champions (champions qui vont bien ensemble).
+
+Le counter-pick (champions qui battent les champions d'en face).
+
+Résultat : « Ton équipe a 62 % de chances de gagner. Points forts : la synergie entre ton ADC et ton support. Point faible : ton top laner est countered. »
+
+Onglet "Prédiction de difficulté"
+----------------------------------
+Tu entres ton pseudo + serveur (ou l'app lit ta game en cours via Riot API).
+
+L'app récupère les MMR des 10 joueurs et leur historique.
+
+Résultat : « Cette game est difficile : ton équipe est en dessous en MMR moyen de 150 points. Ton adversaire direct (mid) a 60 % de win rate sur son champion. »
+
+Onglet "Prédiction de build"
+-----------------------------
+Tu entres ton champion, ton rôle, et le patch.
+
+L'app compare ton build actuel avec les builds méta (calculés depuis Riot API).
+
+Résultat : « Ce build a 55 % de win rate. Le build recommandé (avec l'objet X) a 58 %. Différence : +3 % de win rate si tu changes le 3e objet. »
+
+Onglet "Prédiction de pick adverse"
+------------------------------------
+Tu entres les 4 picks de l'adversaire (ou l'app les récupère).
+
+L'app prédit le 5e pick le plus probable, basé sur la méta et les compositions historiques.
+
+Résultat : « L'adversaire va probablement pick ce champion. Prépare-toi à jouer contre lui avec ton champion actuel. »
+
+===========
+REMARQUES
+==========
+
+1. L'estimation du MMR caché (Le "Graal")
+------------------------------------------
+C'est une excellente idée, mais c'est le plus gros défi technique et juridique.
+
+Le problème : Riot ne publie jamais le MMR exact. U.GG et OP.GG l'estiment via des algorithmes complexes (basés sur les rangs, les LP gagnés/perdus, l'historique des matchs).
+
+La solution : Tu ne peux pas faire une estimation parfaite sans les données de Riot. Mais tu peux faire une estimation probabiliste : enregistrer les LP gagnés par match, le rang, et calculer une moyenne glissante. Si tu gagnes 25 LP par game, c'est que ton MMR est supérieur à ton rang actuel. Si tu gagnes 15 LP, il est inférieur.
+
+Le piège : Riot a récemment durci ses règles sur l'utilisation de l'API pour "scraper" les données des autres joueurs. Tu ne pourras le faire que pour le compte de l'utilisateur qui se connecte.
+
+Mon conseil : Garde l'idée en tête, mais ne le fais pas en premier. C'est un projet de 3-4 tours à lui tout seul.
+
+2. Conseils automatiques basés sur les stats (Style AimLab)
+------------------------------------------------------------
+Très bonne idée, et contrairement à AimLab, tu n'as pas besoin du temps réel.
+
+AimLab analyse la souris en temps réel. Toi, tu peux analyser les données post-game.
+
+Comment faire : L'API Riot donne énormément de données post-game (KDA, CS par minute, vision score, dégâts, temps de mort, position sur la carte).
+
+Les conseils que tu peux donner : "Ton CS à la 10e minute est en moyenne de 45, alors que la moyenne de ton rang est de 65. Tu devrais focus les sbires" ou "Ton taux de morts est trop élevé dans les 15 premières minutes, tu es trop agressif en early game".
+
+Le piège : Ne fais pas de "machine learning" complexe. Fais des règles simples et transparentes. Un conseil que le joueur comprend vaut mieux qu'une IA qui donne un conseil sans explication.
+
+3. Liste des items avec stats, durées, combinaisons
+----------------------------------------------------
+C'est la base de tout outil LoL, et c'est très facile à faire.
+
+Les données : Data Dragon de Riot donne tous les items, leurs stats, leurs prix, leurs catégories, et leurs recettes de fabrication.
+
+Ce que tu peux ajouter : "Bon pour tel personnage" (basé sur les stats), "Early game ou End game" (basé sur le prix et les stats).
+
+Le piège : Ce n'est pas une idée "nouvelle" (U.GG et OP.GG le font déjà). Ton avantage, c'est de le faire dans une app desktop, avec un design propre.
+
+Mon conseil : C'est l'idée la plus facile à réaliser pour commencer le projet LoL. 1 tour de travail.
+
+4. Affichage des cartes avec points d'intérêt
+----------------------------------------------
+Excellente idée, et très visuelle.
+
+Comment faire : Tu peux utiliser les tuiles de la carte de LoL (comme tu l'as fait pour RS3Bot). Il existe des cartes HD de la Faille de l'invocateur.
+
+Les points d'intérêt : Les tours, les monstres (Dragon, Baron), les camps de jungle, les buissons.
+
+L'avantage : Ça donne une vraie valeur à l'app pour les débutants. Un site web te donne une liste textuelle ; une app desktop te donne une carte interactive.
+
+Mon conseil : C'est un excellent projet pour la V2 de l'app LoL.
+
+5. Lecteur HD intégré (Replay)
+-------------------------------
+C'est LE piège à éviter.
+
+Le problème : Riot Games ne permet pas de lire les fichiers de replay (.rofl) via une API. Le format .rofl est propriétaire, et Riot ne donne pas les clés pour le décoder.
+
+Ce que tu peux faire : Tu ne peux pas faire un "lecteur HD intégré". Tu peux seulement faire un lecteur de fichiers vidéo classiques (MP4, MKV) si l'utilisateur a enregistré sa game avec OBS.
+
+Le piège : Ne promets pas un "lecteur de replay" si tu ne peux pas lire le format .rofl. Les utilisateurs seraient très déçus.
+
+Mon conseil : Propose plutôt un "Lecteur de vidéos locales" (l'utilisateur glisse son fichier MP4 dans l'app, et l'app le lit).
+
+6. Suivi de progression (Win rate par champion, rôle, serveur)
+---------------------------------------------------------------
+Excellente idée, et très demandée.
+
+Comment faire : L'utilisateur entre son pseudo et son serveur. L'app appelle l'API Riot pour récupérer ses 20 derniers matchs, et calcule les stats.
+
+Le piège : L'API Riot a un rate-limit de 100 requêtes / 2 minutes. Tu ne peux pas analyser 1000 matchs d'un coup. Tu dois te limiter aux derniers matchs.
+
+Mon conseil : Très faisable en 2 tours. C'est une excellente feature premium.
+
+7. Minion personnalisé (Le Pet)
+--------------------------------
+C'est ton "signature move", et c'est excellent.
+
+Tu as déjà le pet sur RS3Bot. Le réutiliser sur LoL, avec un Minion (les petits bonshommes de LoL), c'est une idée géniale et mignonne.
+
+Le défi : Il faut dessiner un Minion animé (ou trouver des assets libres de droits).
+
+L'avantage : Ça donne une personnalité à l'app. Les utilisateurs aiment les pets. C'est un facteur de rétention.
+
+Mon conseil : Fais-le en dernier, quand le reste fonctionne. C'est la cerise sur le gâteau.
+
+8. Onglet "Teams" (Équipes)
+----------------------------
+
+Une grille avec le logo et le nom de chaque équipe.
+En cliquant sur une équipe : la liste des joueurs (photo, pseudo, rôle, pays, âge), les trophées majeurs, et les stats globales de l'équipe.
+
+Source : Leaguepedia (scraping) + Riot Esports API.
+
+9. Onglet "Leagues" (Compétitions)
+----------------------------------
+
+Une liste des ligues (LEC, LCS, LCK, LPL, etc.), avec les classements par équipe (T1, T2, T3).
+En cliquant sur une ligue : le classement actuel, les matchs à venir, l'historique.
+
+Source : Riot Esports API + Leaguepedia.
+
+10.
+--------------------------------

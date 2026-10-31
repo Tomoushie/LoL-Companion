@@ -1,0 +1,212 @@
+/*
+ * Vue Glossaire (V0.8) : dictionnaire éditorial local, recherche et catégories.
+ */
+
+.view--glossary {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.glossary-total {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.glossary-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(10, 15, 28, 0.55);
+}
+
+.glossary-search {
+  flex: 1 1 280px;
+  max-width: 420px;
+}
+
+.glossary-search-input {
+  width: 100%;
+}
+
+.glossary-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.glossary-category-chip {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 11px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.glossary-category-chip:hover {
+  color: var(--text-strong);
+  background: rgba(148, 178, 214, 0.06);
+}
+
+.glossary-category-chip[aria-selected="true"] {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.12);
+  color: #cffafe;
+}
+
+.glossary-hint {
+  margin: 0;
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.glossary-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.glossary-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.82), rgba(9, 14, 26, 0.82));
+  scroll-margin-top: 20px;
+}
+
+.glossary-entry--highlight {
+  border-color: rgba(34, 211, 238, 0.65);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.22), 0 0 24px rgba(34, 211, 238, 0.12);
+}
+
+.glossary-entry-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.glossary-term {
+  margin: 0;
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.glossary-category {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.glossary-definition {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.glossary-example {
+  margin: 0;
+  padding: 7px 9px;
+  border-left: 2px solid rgba(34, 211, 238, 0.4);
+  background: rgba(34, 211, 238, 0.05);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.glossary-example-label {
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.glossary-aliases {
+  margin: 0;
+  color: var(--text-faint);
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+.glossary-related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.glossary-related-label {
+  color: var(--text-faint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.glossary-related-link {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 9px;
+  background: rgba(148, 178, 214, 0.04);
+  color: var(--text-muted);
+  font-size: 10px;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.glossary-related-link:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+  color: var(--text-strong);
+}
+
+.glossary-empty {
+  margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .glossary-toolbar {
+    align-items: stretch;
+  }
+
+  .glossary-search {
+    max-width: none;
+  }
+}

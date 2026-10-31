@@ -1,0 +1,63 @@
+/*
+ * Tokens du thème sombre « cyber » de LoL BOT.
+ * Palette bleu-noir + accents cyan/magenta. Aucun ton or/brun.
+ * Aucune ressource réseau : polices système locales uniquement.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Fonds */
+  --bg-abyss: #05070d;
+  --bg-deep: #0a0f1c;
+  --bg-panel: #101828;
+  --bg-elevated: #162033;
+
+  /* Texte */
+  --text-strong: #e8f2ff;
+  --text: #c3d3e8;
+  --text-muted: #8497b0;
+  --text-faint: #5f7189;
+
+  /* Accents cyber */
+  --accent-cyan: #22d3ee;
+  --accent-magenta: #e879f9;
+
+  /* Sémantique */
+  --ok: #34d399;
+  --warn: #f0abfc;
+  --danger: #fb7185;
+
+  /* Lignes et séparateurs */
+  --line: rgba(148, 178, 214, 0.14);
+  --line-soft: rgba(148, 178, 214, 0.07);
+  --line-strong: rgba(34, 211, 238, 0.34);
+
+  /* Couleurs de rôle — prêtes pour la V0.2.
+     ATTENTION : les tags Data Dragon (Fighter/Mage/Tank…) ne sont PAS des
+     rôles ; aucun mapping n'est fait dans l'interface. */
+  --role-top: #ef4444;
+  --role-jungle: #22c55e;
+  --role-mid: #3b82f6;
+  --role-adc: #eab308;
+  --role-support: #a855f7;
+
+  /* Typographie — polices système Windows uniquement */
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI Semibold", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", "Cascadia Code", Consolas, "SFMono-Regular", ui-monospace, monospace;
+
+  /* Formes */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* Ombres / halos */
+  --shadow-panel: 0 14px 32px rgba(0, 0, 0, 0.45);
+  --glow-cyan: 0 0 0 1px rgba(34, 211, 238, 0.22), 0 0 18px rgba(34, 211, 238, 0.1);
+
+  /* Gabarit */
+  --page-pad: 22px;
+  --header-height: 60px;
+}

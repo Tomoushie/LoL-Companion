@@ -1,0 +1,49 @@
+{
+  "$schema": "https://tauri.app/tauri-conf.json",
+  "productName": "LoL BOT",
+  "version": "0.9.0",
+  "identifier": "com.lolbot.desktop",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "LoL BOT — Compagnon League of Legends",
+        "width": 1440,
+        "height": 900,
+        "minWidth": 1080,
+        "minHeight": 700,
+        "resizable": true,
+        "center": true,
+        "theme": "Dark"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: http://asset.localhost data:; font-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost ws://localhost:1420 http://localhost:1420",
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["$DATA/LoL BOT/cache/**"]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "category": "Utility",
+    "shortDescription": "Compagnon desktop League of Legends — données statiques Data Dragon en cache local.",
+    "longDescription": "LoL BOT est une application desktop Windows locale (sans backend) qui met en cache les données statiques Data Dragon de League of Legends (champions, objets, runes) et les affiche hors ligne. Projet communautaire non affilié à Riot Games.",
+    "copyright": "LoL BOT — projet communautaire non affilié à Riot Games.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

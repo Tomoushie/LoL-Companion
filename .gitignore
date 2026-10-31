@@ -1,0 +1,32 @@
+# Dépendances et artefacts de build
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+
+# Artefacts de release locaux (les binaires vont dans les assets GitHub Releases)
+release/
+*.msi
+*.nsis.zip
+
+# Secrets / configuration locale
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+src-tauri/config/
+
+# Fichiers locaux / divers
+*.log
+.vscode/
+.DS_Store
+Thumbs.db
+_recon_*.png
+_*.png
+_e2e-cache/
+_e2e-mock/
+
+# Raccourcis Windows locaux
+*.lnk

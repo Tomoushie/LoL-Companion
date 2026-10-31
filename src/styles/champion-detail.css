@@ -1,0 +1,336 @@
+/*
+ * Vue « Fiche champion » : bandeau splash, identité, statistiques, sorts,
+ * passif. Reprend strictement le thème cyber existant.
+ */
+
+.detail-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-back {
+  padding: 6px 12px;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.detail-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Bandeau splash ------------------------------------------------------ */
+
+.detail-hero {
+  position: relative;
+  width: 100%;
+  height: clamp(260px, 30vw, 400px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(5, 7, 13, 0.9);
+}
+
+.champion-splash {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.champion-splash-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(148, 178, 214, 0.06) 0 10px,
+    transparent 10px 20px
+  );
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 30px;
+}
+
+.detail-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 22px 24px;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 7, 13, 0) 30%,
+    rgba(5, 7, 13, 0.45) 58%,
+    rgba(5, 7, 13, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+.detail-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.detail-name {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+  text-transform: uppercase;
+}
+
+.detail-title {
+  color: #d7e3f4;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.detail-tags .champ-tag {
+  padding: 3px 8px;
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(5, 7, 13, 0.5);
+}
+
+/* Chargement ---------------------------------------------------------- */
+
+.detail-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.detail-hero--skeleton {
+  border: 1px solid var(--line);
+  background: linear-gradient(
+    100deg,
+    rgba(148, 178, 214, 0.06) 30%,
+    rgba(148, 178, 214, 0.14) 50%,
+    rgba(148, 178, 214, 0.06) 70%
+  );
+  background-size: 220% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+.detail-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Sections ------------------------------------------------------------ */
+
+.detail-section {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.detail-section-title {
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.detail-blurb {
+  max-width: 1000px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* Statistiques -------------------------------------------------------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px 14px;
+}
+
+.stat-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.35);
+}
+
+.stat-label {
+  color: var(--text-faint);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.stat-base {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-per-level {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* Sorts / passif ------------------------------------------------------ */
+
+.spell-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spell-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: rgba(5, 7, 13, 0.35);
+}
+
+.spell-icon-wrap,
+.passive-icon-wrap {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.spell-icon,
+.passive-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spell-icon-placeholder,
+.passive-icon-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+
+.spell-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.spell-name {
+  color: var(--text-strong);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.spell-description {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.spell-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  margin-top: 2px;
+}
+
+.spell-meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.spell-meta-label {
+  color: var(--text-faint);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.spell-meta-value {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.passive-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(232, 121, 249, 0.24);
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(232, 121, 249, 0.08), rgba(5, 7, 13, 0.3));
+}
+
+@media (max-width: 1240px) {
+  .detail-name {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .detail-name {
+    font-size: 24px;
+  }
+
+  .detail-hero {
+    height: clamp(230px, 30vw, 320px);
+  }
+}

@@ -1,0 +1,238 @@
+/*
+ * Fiche de match Riot (V0.5) : résumé, deux équipes et 10 participants.
+ */
+
+.riot-match-detail-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.riot-match-header {
+  padding: 16px 18px;
+}
+
+.riot-match-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.riot-match-header .riot-match-result {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.riot-match-headline-queue {
+  color: var(--text-faint);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.riot-match-header-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px 14px;
+}
+
+.riot-match-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 8px 11px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.riot-match-header-label {
+  color: var(--text-faint);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.riot-match-header-value {
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+/* --- Équipes --------------------------------------------------------- */
+
+.riot-teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.riot-team {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.riot-team-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.riot-team-title {
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.riot-team-win {
+  padding: 2px 9px;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.1);
+  color: var(--ok);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.riot-participant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.riot-participant-row--head {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 92px 64px 72px 84px;
+  gap: 10px;
+  padding: 0 8px 4px;
+}
+
+.riot-participant-head {
+  color: var(--text-faint);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.riot-participant {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 92px 64px 72px 84px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.riot-participant--self {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.06);
+}
+
+.riot-participant-champion-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.riot-participant-champion-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.riot-participant-champion-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.riot-participant-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.riot-participant-name {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.riot-participant-puuid {
+  overflow: hidden;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.riot-participant-champion-name {
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.riot-participant-kda,
+.riot-participant-cs,
+.riot-participant-vision {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.riot-participant-position {
+  color: var(--text-faint);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 1120px) {
+  .riot-teams {
+    grid-template-columns: 1fr;
+  }
+
+  .riot-participant-row--head,
+  .riot-participant {
+    grid-template-columns: 32px minmax(0, 1fr) 82px 54px 62px 74px;
+    gap: 8px;
+  }
+}

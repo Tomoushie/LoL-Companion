@@ -1,0 +1,536 @@
+/*
+ * Vue Méta (V0.6) : tier list et builds OP.GG (données externes réelles).
+ */
+
+.meta-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.meta-subtabs {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(10, 15, 28, 0.62);
+}
+
+.meta-subtab {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 6px 16px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.meta-subtab:hover {
+  color: var(--text-strong);
+  background: rgba(148, 178, 214, 0.06);
+}
+
+.meta-subtab[aria-selected="true"] {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.12);
+  box-shadow: inset 0 0 12px rgba(34, 211, 238, 0.08);
+  color: #cffafe;
+}
+
+.meta-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-control-label {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Le MCP OP.GG n'est pas régionalisé : le sélecteur ne sert qu'au libellé/cache. */
+.meta-region-note {
+  max-width: 1000px;
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.meta-platform-select {
+  width: auto;
+  min-width: 190px;
+}
+
+.meta-platforms-error {
+  margin-top: 8px;
+  color: var(--danger);
+  font-size: 11.5px;
+  overflow-wrap: anywhere;
+}
+
+/* --- Bandeau source --------------------------------------------------- */
+
+.meta-source-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(10, 15, 28, 0.45);
+}
+
+.meta-source-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.meta-source-name {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+}
+
+.meta-source-label {
+  color: var(--text-faint);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.meta-source-sep {
+  color: var(--text-faint);
+}
+
+.meta-fetched-at {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.meta-cache-badge {
+  padding: 1px 7px;
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: 999px;
+  color: #7dd3fc;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.meta-warning {
+  color: var(--warn);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* --- Tier list -------------------------------------------------------- */
+
+.meta-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.meta-role-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.meta-tier-loaded {
+  align-self: flex-start;
+  padding: 2px 9px;
+  border: 1px solid rgba(52, 211, 153, 0.32);
+  border-radius: 999px;
+  color: var(--ok);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+}
+
+.meta-tier-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.meta-tier-row {
+  display: grid;
+  grid-template-columns: 38px 38px minmax(0, 1fr) 72px 56px 56px 56px 56px 52px 62px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.meta-tier-row--head {
+  padding: 4px 10px;
+  border-color: transparent;
+  background: transparent;
+}
+
+.meta-tier-head {
+  color: var(--text-faint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.meta-tier-rank {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-align: right;
+}
+
+.meta-tier-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.meta-tier-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meta-tier-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.meta-tier-champion {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta-tier-role {
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.meta-tier-tier {
+  justify-self: start;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--text-muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.meta-tier-tier[data-tier="1"] {
+  border-color: rgba(232, 121, 249, 0.45);
+  background: rgba(232, 121, 249, 0.12);
+  color: #f0abfc;
+}
+
+.meta-tier-tier[data-tier="2"] {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(34, 211, 238, 0.1);
+  color: #7dd3fc;
+}
+
+.meta-tier-tier[data-tier="3"] {
+  border-color: rgba(148, 178, 214, 0.28);
+  color: var(--text-strong);
+}
+
+.meta-tier-tier[data-tier="4"],
+.meta-tier-tier[data-tier="5"] {
+  color: var(--text-faint);
+}
+
+.meta-tier-winrate,
+.meta-tier-pickrate,
+.meta-tier-banrate,
+.meta-tier-kda,
+.meta-tier-games {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.meta-tier-winrate {
+  color: #a5f3fc;
+}
+
+/* --- Builds ----------------------------------------------------------- */
+
+.meta-build-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(150px, 0.8fr) minmax(150px, 0.8fr);
+  gap: 12px;
+}
+
+.meta-build-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.meta-builds {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.meta-build-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.meta-build-champion {
+  color: #f5fbff;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.meta-build-subtitle {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.meta-build-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.meta-build-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.meta-build-summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 8px 11px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.meta-build-summary-label {
+  color: var(--text-faint);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.meta-build-summary-value {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+.meta-build-section {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, rgba(16, 24, 40, 0.85), rgba(10, 15, 28, 0.85));
+}
+
+.meta-build-section-title {
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.meta-build-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  background: rgba(5, 7, 13, 0.3);
+}
+
+.meta-build-row + .meta-build-row {
+  margin-top: 6px;
+}
+
+.build-item-cells {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.build-item-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  max-width: 96px;
+}
+
+.build-item-icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(5, 7, 13, 0.8);
+}
+
+.build-item-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.build-item-icon--placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.build-item-name {
+  overflow: hidden;
+  max-width: 96px;
+  color: var(--text-muted);
+  font-size: 9.5px;
+  line-height: 1.25;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta-build-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.build-item-pickrate {
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.build-item-games {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.build-low-sample {
+  padding: 1px 7px;
+  border: 1px solid rgba(232, 121, 249, 0.3);
+  border-radius: 999px;
+  color: var(--warn);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1180px) {
+  .meta-tier-row {
+    grid-template-columns: 32px 34px minmax(0, 1fr) 64px 52px 50px 50px 50px 46px 54px;
+    gap: 6px;
+    padding: 5px 8px;
+  }
+
+  .meta-tier-winrate,
+  .meta-tier-pickrate,
+  .meta-tier-banrate,
+  .meta-tier-kda,
+  .meta-tier-games {
+    font-size: 9.5px;
+  }
+
+  .meta-build-form {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 1120px) {
+  .meta-tier-row {
+    grid-template-columns: 30px 32px minmax(0, 1fr) 58px 48px 46px 46px 46px 42px 50px;
+    gap: 5px;
+  }
+
+  .meta-platform-select {
+    min-width: 160px;
+  }
+
+  .meta-build-form {
+    grid-template-columns: 1fr;
+  }
+}
