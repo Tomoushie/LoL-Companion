@@ -76,6 +76,11 @@ progression.
 ## Captures d'écran
 
 <p align="center">
+  <img src="docs/v0.9-champions-filters.png" alt="LoL BOT — filtre par classe Fighter" width="100%" />
+</p>
+<p align="center"><em>Filtres par classe Data Dragon (V0.9) : 60 combattants sur 173 champions.</em></p>
+
+<p align="center">
   <img src="docs/v0.7-rune-builder.png" alt="Rune Builder — 3 pages OP.GG pour Ahri Mid" width="100%" />
 </p>
 <p align="center"><em>Rune Builder : trois pages réelles OP.GG pour Ahri Mid.</em></p>
