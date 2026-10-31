@@ -1,6 +1,6 @@
 [package]
 name = "lol-bot"
-version = "0.9.0"
+version = "1.0.0"
 description = "LoL BOT — compagnon desktop League of Legends (Data Dragon en cache local)"
 authors = ["LoL BOT"]
 edition = "2021"

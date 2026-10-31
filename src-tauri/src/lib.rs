@@ -16,6 +16,7 @@ pub mod riot;
 mod cache;
 mod commands;
 mod ddragon;
+mod esports;
 mod meta;
 
 pub fn run() {
@@ -61,6 +62,11 @@ pub fn run() {
             commands::get_meta_tier_list,
             commands::get_meta_builds,
             commands::get_meta_rune_pages,
+            commands::get_esports_leagues,
+            commands::get_esports_teams,
+            commands::get_esports_team,
+            commands::get_esports_tournaments,
+            commands::get_esports_standings,
         ])
         .run(tauri::generate_context!())
         .expect("échec du lancement de LoL BOT");

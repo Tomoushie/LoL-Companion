@@ -512,3 +512,79 @@ pub struct MetaRunePages {
     pub pages: Vec<MetaRunePage>,
     pub warning: Option<String>,
 }
+
+// ---------------------------------------------------------------------------
+// Esport (Riot Esports API) — équipes et compétitions (V1.0)
+// ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct EsportsLeague {
+    pub id: String,
+    pub slug: String,
+    pub name: String,
+    pub region: String,
+    pub image_url: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct EsportsTeam {
+    pub id: String,
+    pub slug: String,
+    pub name: String,
+    pub code: String,
+    pub image_url: String,
+    pub home_league: Option<String>,
+    pub region: Option<String>,
+    pub status: String,
+    pub player_count: u32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct EsportsPlayer {
+    pub id: String,
+    pub summoner_name: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub role: String,
+    pub image_url: String,
+    /// Non fournis par l'API Riot Esports : null, affiché « — » côté UI.
+    pub age: Option<u32>,
+    pub country: Option<String>,
+    pub language: Option<String>,
+    pub handedness: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct EsportsTeamDetail {
+    pub team: EsportsTeam,
+    pub players: Vec<EsportsPlayer>,
+    pub fetched_at: String,
+    pub from_cache: bool,
+    pub warning: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct EsportsTournament {
+    pub id: String,
+    pub slug: String,
+    pub start_date: String,
+    pub end_date: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct EsportsStanding {
+    pub stage: String,
+    pub section: String,
+    pub ordinal: u32,
+    pub team_name: String,
+    pub team_code: String,
+    pub team_image_url: String,
+    pub wins: Option<u32>,
+    pub losses: Option<u32>,
+}

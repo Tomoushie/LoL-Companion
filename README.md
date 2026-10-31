@@ -5,7 +5,7 @@
 <h1 align="center">LoL BOT — Compagnon local pour League of Legends</h1>
 
 <p align="center">
-  <em>Champions, objets, runes, profil, méta et glossaire — dans une app Windows native, rapide et 100&nbsp;% locale.</em>
+  <em>Champions, objets, runes, profil, méta, esport et glossaire — dans une app Windows native, rapide et 100&nbsp;% locale.</em>
 </p>
 
 <p align="center">
@@ -39,7 +39,8 @@
 **LoL BOT** est un compagnon desktop **Windows** pour League of Legends, construit avec **Rust + Tauri 2**.
 Il rassemble les informations utiles autour du jeu dans une interface sombre et rapide : catalogue
 **Data Dragon** (champions, objets, runes), **Rune Builder** avec pages réelles OP.GG, **tier list** et
-**builds méta**, **profil Riot** (rang, LP, matchs, progression), **glossaire** intégré et recherche
+**builds méta**, **profil Riot** (rang, LP, matchs, progression), **onglet Esport** (équipes,
+compétitions, classements Riot Esports), **glossaire** intégré, **curseur personnalisé** et recherche
 globale.
 
 L'application est **locale par défaut** : les données statiques sont mises en cache sur le disque et
@@ -66,12 +67,25 @@ progression.
 - **Votre profil Riot** — rang/LP, 10 derniers matchs, fiche de match et progression sur 50 matchs
   (win rate par champion, rôle et serveur) **avec votre clé**.
 - **Un glossaire pour débuter** — 133 termes expliqués, recherche FR/EN, catégories et liens.
+- **Un onglet Esport** — 1 193 équipes actives, 51 ligues, tournois et classements réels via la Riot
+  Esports API.
+- **Un curseur personnalisé** — crosshair cyan local, activable depuis le pied de page et mémorisé.
 - **Rapide et natif** — Rust/Tauri 2, pas d'Electron, pas de serveur, pas de compte.
 
 <p align="center">
   <img src="docs/v0.6-meta-tierlist.png" alt="LoL BOT — tier list OP.GG réelle" width="100%" />
 </p>
 <p align="center"><em>Tier list OP.GG réelle, filtrable par rôle, avec win/pick/ban rates et cache local.</em></p>
+
+<p align="center">
+  <img src="docs/v1.0-esports-team.png" alt="LoL BOT — fiche équipe T1 (Riot Esports)" width="100%" />
+</p>
+<p align="center"><em>Esport : fiche T1, joueurs réels et champs non fournis affichés « — ».</em></p>
+
+<p align="center">
+  <img src="docs/v1.0-esports-standings.png" alt="LoL BOT — classement LCS 2026 (Riot Esports)" width="100%" />
+</p>
+<p align="center"><em>Compétitions : tournois et classements réels (LCS 2026, victoires/défaites).</em></p>
 
 ## Captures d'écran
 
@@ -109,8 +123,19 @@ progression.
 | **Profil Riot** | Clé locale optionnelle : rang/LP, 10 derniers matchs, fiche de match détaillée. |
 | **Progression personnelle** | Win rate par champion, par rôle et par serveur sur les 50 derniers matchs. |
 | **Glossaire** | 133 termes, 7 catégories, recherche FR/EN, liens « Voir aussi ». |
-| **Cache local** | Data Dragon, Riot et OP.GG mis en cache ; consultation hors ligne des données statiques. |
+| **Esport** | 1 193 équipes actives, 51 ligues, joueurs, tournois et classements réels (Riot Esports API). |
+| **Curseur personnalisé** | Crosshair cyan local, bascule dans le pied de page, préférence mémorisée. |
+| **Cache local** | Data Dragon, Riot, OP.GG et Esport mis en cache ; consultation hors ligne des données statiques. |
 | **Thème cyber** | Interface sombre native, responsive 1080×700 minimum. |
+
+### Demande V1.0 non livrée dans cette version
+
+| Demande | Statut / raison |
+|---|---|
+| **Combinaisons de runes interactives** (stats apportées au champion) | Non livré : Data Dragon fournit les arbres et descriptions, pas les valeurs numériques des runes ni les ratios sorts/champion nécessaires pour calculer un impact fiable. Le Rune Builder propose déjà 3 pages réelles OP.GG. |
+| **Effets d'un objet sur un champion** (stats/sorts) | Non livré : les stats d'objet et de champion sont disponibles, mais les ratios des sorts ne sont pas exposés par Data Dragon ; un calcul complet serait une estimation. La fiche objet détaille déjà les stats réelles. |
+| **Runes recommandées sur la liste des champions** | Non livré : cela demanderait un appel OP.GG par champion (173) ou un gros cache ; le Rune Builder le fait déjà à la demande. |
+| **Âge/pays/langue/main dominante des joueurs esport, trophées** | Non fournis par l'API Riot Esports ; l'app affiche « — » et une note explicite plutôt que d'inventer. Leaguepedia a été testé mais renvoie un rate-limit sans accès garanti. |
 
 ### À venir
 
@@ -134,14 +159,14 @@ progression.
 
 1. Ouvrez la page **[Dernière release](https://github.com/Tomoushie/LoL-Companion/releases/latest)**.
 2. Téléchargez **un** des fichiers :
-   - **`LoL.BOT_0.9.0_x64-setup.exe`** — installateur NSIS, **recommandé** ;
-   - **`LoL.BOT_0.9.0_x64_en-US.msi`** — paquet MSI pour les déploiements Windows ;
+   - **`LoL.BOT_1.0.0_x64-setup.exe`** — installateur NSIS, **recommandé** ;
+   - **`LoL.BOT_1.0.0_x64_en-US.msi`** — paquet MSI pour les déploiements Windows ;
    - **`lol-bot.exe`** — exécutable portable (aucune installation).
 3. Lancez l'installateur (ou l'exe portable) et ouvrez **LoL BOT**.
 4. Vérifiez éventuellement l'intégrité avec **`SHA256SUMS`** (fourni avec la release) :
 
 ```powershell
-Get-FileHash -Algorithm SHA256 ".\LoL.BOT_0.9.0_x64-setup.exe"
+Get-FileHash -Algorithm SHA256 ".\LoL.BOT_1.0.0_x64-setup.exe"
 ```
 
 Le fichier `SHA256SUMS` contient les empreintes SHA-256 des trois fichiers publiés.
@@ -155,7 +180,7 @@ Le fichier `SHA256SUMS` contient les empreintes SHA-256 des trois fichiers publi
 
 - L'app télécharge et met en cache les données **Data Dragon** au premier démarrage (champions, objets,
   runes, icônes). Les lancements suivants sont locaux.
-- Les onglets **Champions / Objets / Runes / Méta / Glossaire** fonctionnent sans clé.
+- Les onglets **Champions / Objets / Runes / Méta / Esport / Glossaire** fonctionnent sans clé.
 - Pour **Profil** et **Progression** : créez une clé de développement sur
   <https://developer.riotgames.com/>, ouvrez **Profil → Clé API Riot**, collez-la et enregistrez.
   La clé est stockée dans `%APPDATA%\LoL BOT\config\riot_api_key` et n'est jamais envoyée ailleurs
@@ -169,14 +194,17 @@ Le fichier `SHA256SUMS` contient les empreintes SHA-256 des trois fichiers publi
 | **Riot API** | profil, matchs, fiche de match, progression 50 matchs | **Oui** (la vôtre) |
 | **OP.GG MCP public** | tier list, builds, pages de runes | Non |
 | **Community Dragon** | libellés des fragments de stats | Non |
+| **Riot Esports API** | équipes, ligues, joueurs, tournois, classements | Non (clé publique cliente) |
 
 - **100 % local** : cache dans `%APPDATA%\LoL BOT\cache`, clé Riot dans
   `%APPDATA%\LoL BOT\config`. Aucune télémétrie, aucun analytics, aucun compte.
 - **Aucune donnée inventée** : quand une valeur n'est pas disponible, l'app affiche `—`.
 - **Pas d'accès au jeu** : aucun scan mémoire, aucun overlay temps réel dans cette version, aucun
   contournement d'API.
-- **Sources tierces** : OP.GG MCP est un service public tiers, non officiel Riot ; les données sont
-  mises en cache avec attribution. LoL BOT n'est affilié ni à Riot Games ni à OP.GG.
+- **Sources tierces** : OP.GG MCP et Riot Esports sont des services publics tiers, non officiels Riot ;
+  les données sont mises en cache avec attribution. LoL BOT n'est affilié ni à Riot Games ni à OP.GG.
+  Les logos/photos esport sont chargés depuis les CDN Riot (URLs distantes) uniquement dans l'onglet
+  Esport ; le reste de l'app reste local.
 
 ## FAQ
 
@@ -204,7 +232,12 @@ répondre rapidement. Le cache évite de tout retélécharger.
 Tout dans `%APPDATA%\LoL BOT\` (cache + clé). Rien dans le dépôt, rien sur un serveur LoL BOT.
 
 **Puis-je contribuer ?**
-Oui : ouvrez une issue, proposez une pull request ou signalez un bug via GitHub.
+Oui : ouvrez une issue, proposez une pull request ou signalez un bug via GitHub. Voir
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+**Pourquoi certains joueurs esport ont-ils des champs « — » ?**
+L'API Riot Esports fournit le pseudo, le nom, le rôle et la photo, mais pas l'âge, le pays, la langue,
+la main dominante ni les trophées. L'app ne les invente pas et l'indique explicitement.
 
 ## Feuille de route
 
@@ -217,17 +250,20 @@ Oui : ouvrez une issue, proposez une pull request ou signalez un bug via GitHub.
 - ✅ V0.7 — Rune Builder
 - ✅ V0.8 — Glossaire
 - ✅ V0.9 — filtres par classe, release NSIS/MSI, dépôt GitHub
+- ✅ V1.0 — onglet Esport, curseur personnalisé, CONTRIBUTING, CODE_OF_CONDUCT, licence explicite
+- 🚧 Combinaisons de runes, effets d'objet sur champion (données manquantes)
 - 🚧 Mode Streamer (overlay OBS)
 - 🚧 Farm Optimizer (analyse de farm basée sur vos matchs)
 
 ## Stack technique
 
-- **Rust** — backend Tauri, cache local, client Riot API, rate-limit, client MCP OP.GG, parsing.
+- **Rust** — backend Tauri, cache local, client Riot API, rate-limit, client MCP OP.GG, client Riot
+  Esports, parsing.
 - **Tauri 2** — coquille native Windows, protocole d'assets local, sécurité CSP.
 - **Vanilla TypeScript / CSS** — interface sans framework lourd, thème sombre « cyber ».
-- **Données** — Data Dragon, Riot API, OP.GG MCP public, Community Dragon.
-- **Tests** — 64 tests Rust sans réseau, e2e CDP (UI, cache, données réelles OP.GG), vérification
-  d'intégrité du cache Data Dragon.
+- **Données** — Data Dragon, Riot API, OP.GG MCP public, Community Dragon, Riot Esports API.
+- **Tests** — 75 tests Rust sans réseau, e2e CDP (UI, cache, données réelles OP.GG/Esport),
+  vérification d'intégrité du cache Data Dragon.
 
 ## Contribuer
 
@@ -235,6 +271,16 @@ Oui : ouvrez une issue, proposez une pull request ou signalez un bug via GitHub.
 - 🐞 **Signaler un bug** via [GitHub Issues](https://github.com/Tomoushie/LoL-Companion/issues).
 - 💡 **Proposer une fonctionnalité** par issue.
 - 🔐 **Signaler un problème de sécurité** en privé par e-mail.
+- 📖 Lire [CONTRIBUTING.md](CONTRIBUTING.md) pour cloner, tester et proposer une pull request.
+- 🤝 Le projet suit le [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## Licence
+
+**Ce projet est distribué sous licence MIT. Vous êtes libre de l'utiliser, de le modifier et de le
+redistribuer, tant que vous conservez la mention de copyright.**
+
+Le texte complet est disponible dans [LICENSE](LICENSE). En contribuant, vous acceptez que votre
+contribution soit distribuée sous cette même licence.
 
 ## Contact
 

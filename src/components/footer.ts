@@ -1,6 +1,7 @@
 /**
  * Pied de page : chemin du cache local (tronqué visuellement, chemin complet
- * en infobulle), dernière synchronisation formatée et compteurs réels du cache.
+ * en infobulle), dernière synchronisation formatée, compteurs réels du cache
+ * et bascule du curseur personnalisé (V1.0).
  */
 
 import type { DataStatus } from "../types";
@@ -15,6 +16,30 @@ export interface FooterHandle {
 interface Cell {
   readonly root: HTMLElement;
   readonly value: HTMLElement;
+}
+
+const CURSOR_STORAGE_KEY = "lolbot.cursor";
+const CURSOR_CUSTOM_VALUE = "custom";
+const CURSOR_STANDARD_VALUE = "standard";
+
+function readCursorPreference(): boolean {
+  try {
+    return window.localStorage.getItem(CURSOR_STORAGE_KEY) === CURSOR_CUSTOM_VALUE;
+  } catch {
+    // localStorage indisponible (webview restreinte) : curseur standard.
+    return false;
+  }
+}
+
+function writeCursorPreference(custom: boolean): void {
+  try {
+    window.localStorage.setItem(
+      CURSOR_STORAGE_KEY,
+      custom ? CURSOR_CUSTOM_VALUE : CURSOR_STANDARD_VALUE,
+    );
+  } catch {
+    // La préférence reste appliquée pour la session, sans persistance.
+  }
 }
 
 function createCell(label: string, rootClass: string, valueClass: string): Cell {
@@ -33,8 +58,39 @@ export function createFooter(): FooterHandle {
   const counts = el("div", { className: "footer-counts" });
   append(counts, itemsCell.root, runesCell.root);
 
+  // --- Curseur personnalisé (V1.0) -------------------------------------
+  let customCursor = readCursorPreference();
+  const cursorState = el("span", {
+    className: "footer-cursor-state",
+    attrs: { "data-cursor-state": "true" },
+  });
+  const cursorToggle = el("button", {
+    className: "footer-cursor-toggle",
+    attrs: { type: "button", "data-cursor-toggle": "true" },
+  });
+  cursorToggle.appendChild(cursorState);
+
+  function applyCursor(custom: boolean): void {
+    document.body.classList.toggle("cursor-custom", custom);
+    cursorState.textContent = custom ? "Curseur personnalisé" : "Curseur standard";
+    cursorToggle.setAttribute("aria-pressed", custom ? "true" : "false");
+    cursorToggle.title = custom
+      ? "Revenir au curseur standard"
+      : "Activer le curseur personnalisé";
+  }
+
+  applyCursor(customCursor);
+  cursorToggle.addEventListener("click", () => {
+    customCursor = !customCursor;
+    applyCursor(customCursor);
+    writeCursorPreference(customCursor);
+  });
+
+  const cursorCell = el("div", { className: "footer-cell footer-cursor" });
+  append(cursorCell, el("span", { className: "footer-label", text: "Curseur" }), cursorToggle);
+
   const element = el("footer", { className: "app-footer" });
-  append(element, pathCell.root, syncCell.root, counts);
+  append(element, pathCell.root, syncCell.root, cursorCell, counts);
 
   function setStatus(status: DataStatus | null): void {
     const cacheDir = status === null ? "" : status.cacheDir;

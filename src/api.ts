@@ -3,6 +3,11 @@ import type {
   Champion,
   ChampionDetail,
   DataStatus,
+  EsportsLeague,
+  EsportsStanding,
+  EsportsTeam,
+  EsportsTeamDetail,
+  EsportsTournament,
   Item,
   MetaBuild,
   MetaRunePages,
@@ -86,6 +91,18 @@ export const api = {
     platform: string,
   ): Promise<MetaRunePages> =>
     invoke<MetaRunePages>("get_meta_rune_pages", { champion, position, platform }),
+
+  // --- Esport (Riot Esports API, sans clé utilisateur) --------------------
+  getEsportsLeagues: (): Promise<EsportsLeague[]> =>
+    invoke<EsportsLeague[]>("get_esports_leagues"),
+  getEsportsTeams: (): Promise<EsportsTeam[]> =>
+    invoke<EsportsTeam[]>("get_esports_teams"),
+  getEsportsTeam: (teamId: string): Promise<EsportsTeamDetail> =>
+    invoke<EsportsTeamDetail>("get_esports_team", { teamId }),
+  getEsportsTournaments: (leagueId: string): Promise<EsportsTournament[]> =>
+    invoke<EsportsTournament[]>("get_esports_tournaments", { leagueId }),
+  getEsportsStandings: (tournamentId: string): Promise<EsportsStanding[]> =>
+    invoke<EsportsStanding[]>("get_esports_standings", { tournamentId }),
 
   /**
    * Convertit un chemin absolu du cache en URL servie par le protocole

@@ -29,6 +29,7 @@ import type { ViewId } from "./ui/view";
 import { createChampionDetailView } from "./views/champion-detail";
 import { createChampionsView } from "./views/champions";
 import { createDataView } from "./views/data";
+import { createEsportsView } from "./views/esports";
 import { createGlossaryView } from "./views/glossary";
 import { createItemDetailView } from "./views/item-detail";
 import { createItemsView } from "./views/items";
@@ -107,6 +108,7 @@ export function mountApp(root: HTMLElement): void {
     getItemNameById: findItemNameById,
   });
   const glossaryView = createGlossaryView();
+  const esportsView = createEsportsView();
   const championDetailView = createChampionDetailView({
     onClose: () => {
       closeDetail(true);
@@ -160,6 +162,7 @@ export function mountApp(root: HTMLElement): void {
     runesView.element,
     profileView.element,
     metaView.element,
+    esportsView.element,
     glossaryView.element,
     championDetailView.element,
     itemDetailView.element,
@@ -243,6 +246,7 @@ export function mountApp(root: HTMLElement): void {
     runesView.element.hidden = detail !== null || view !== "runes";
     profileView.element.hidden = detail !== null || view !== "profile";
     metaView.element.hidden = detail !== null || view !== "meta";
+    esportsView.element.hidden = detail !== null || view !== "esports";
     glossaryView.element.hidden = detail !== null || view !== "glossary";
     dataView.element.hidden = detail !== null || view !== "data";
     championDetailView.element.hidden = detail !== "champion";
@@ -263,6 +267,10 @@ export function mountApp(root: HTMLElement): void {
     if (activeView === "meta") {
       // Chargement paresseux de la tier list OP.GG à la première arrivée.
       metaView.onShown();
+    }
+    if (activeView === "esports") {
+      // Chargement paresseux des équipes Riot Esports à la première arrivée.
+      esportsView.onShown();
     }
     showView(activeView);
   }

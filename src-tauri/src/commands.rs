@@ -2,9 +2,9 @@
 //!
 //! Contrat : voir `model.rs` (Rust) et `src/types.ts` (TypeScript). Sont
 //! exposés : l'état/synchronisation Data Dragon, les listes champions/objets/
-//! runes, la fiche champion, l'intégration Riot API (V0.5) et la méta OP.GG
-//! (V0.6). Toute erreur est convertie en message lisible ; aucune donnée
-//! inventée, aucune clé exposée.
+//! runes, la fiche champion, l'intégration Riot API (V0.5), la méta OP.GG
+//! (V0.6), le Rune Builder (V0.7) et l'Esport Riot (V1.0). Toute erreur est
+//! convertie en message lisible ; aucune donnée inventée, aucun secret exposé.
 
 use std::path::PathBuf;
 
@@ -15,7 +15,8 @@ use crate::cache::{self, Cache, CacheMeta, CHAMPION_FILE, ITEM_FILE, RUNES_FILE}
 use crate::ddragon::{self, DdragonClient};
 use crate::error::{AppError, AppResult};
 use crate::model::{
-    Champion, ChampionDetail, ChampionSpell, DataStatus, Item, MetaBuild, MetaRunePages,
+    Champion, ChampionDetail, ChampionSpell, DataStatus, EsportsLeague, EsportsStanding,
+    EsportsTeam, EsportsTeamDetail, EsportsTournament, Item, MetaBuild, MetaRunePages,
     MetaTierList, RiotKeyStatus, RiotMatchDetail, RiotPlatformInfo, RiotProfile, RiotProgression,
     RuneTree,
 };
@@ -262,6 +263,60 @@ pub async fn get_meta_rune_pages(
 ) -> Result<MetaRunePages, String> {
     let cache = open_cache(&app).map_err(message)?;
     crate::meta::rune_pages(&cache, &champion, &position, &platform)
+        .await
+        .map_err(message)
+}
+
+// ---------------------------------------------------------------------------
+// Esport Riot (V1.0) — cache local, données externes réelles.
+// ---------------------------------------------------------------------------
+
+/// Ligues Esport (cache 24 h).
+#[tauri::command]
+pub async fn get_esports_leagues(app: tauri::AppHandle) -> Result<Vec<EsportsLeague>, String> {
+    let cache = open_cache(&app).map_err(message)?;
+    crate::esports::leagues(&cache).await.map_err(message)
+}
+
+/// Toutes les équipes Esport, actives et archivées (cache 24 h).
+#[tauri::command]
+pub async fn get_esports_teams(app: tauri::AppHandle) -> Result<Vec<EsportsTeam>, String> {
+    let cache = open_cache(&app).map_err(message)?;
+    crate::esports::teams(&cache).await.map_err(message)
+}
+
+/// Fiche d'une équipe Esport (équipe + joueurs, cache équipes 24 h).
+#[tauri::command]
+pub async fn get_esports_team(
+    app: tauri::AppHandle,
+    team_id: String,
+) -> Result<EsportsTeamDetail, String> {
+    let cache = open_cache(&app).map_err(message)?;
+    crate::esports::team_detail(&cache, &team_id)
+        .await
+        .map_err(message)
+}
+
+/// Tournois d'une ligue Esport (cache 6 h).
+#[tauri::command]
+pub async fn get_esports_tournaments(
+    app: tauri::AppHandle,
+    league_id: String,
+) -> Result<Vec<EsportsTournament>, String> {
+    let cache = open_cache(&app).map_err(message)?;
+    crate::esports::tournaments(&cache, &league_id)
+        .await
+        .map_err(message)
+}
+
+/// Classements aplatis d'un tournoi Esport (cache 6 h).
+#[tauri::command]
+pub async fn get_esports_standings(
+    app: tauri::AppHandle,
+    tournament_id: String,
+) -> Result<Vec<EsportsStanding>, String> {
+    let cache = open_cache(&app).map_err(message)?;
+    crate::esports::standings(&cache, &tournament_id)
         .await
         .map_err(message)
 }

@@ -415,3 +415,67 @@ export interface MetaRunePages {
   pages: MetaRunePage[];
   warning: string | null;
 }
+
+// ---------------------------------------------------------------------------
+// Esport (Riot Esports API) — équipes et compétitions (V1.0)
+// ---------------------------------------------------------------------------
+
+export interface EsportsLeague {
+  id: string;
+  slug: string;
+  name: string;
+  region: string;
+  imageUrl: string;
+}
+
+export interface EsportsTeam {
+  id: string;
+  slug: string;
+  name: string;
+  code: string;
+  imageUrl: string;
+  homeLeague: string | null;
+  region: string | null;
+  status: string;
+  playerCount: number;
+}
+
+export interface EsportsPlayer {
+  id: string;
+  summonerName: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  imageUrl: string;
+  /** Non fournis par l'API Riot Esports : null, affiché « — ». */
+  age: number | null;
+  country: string | null;
+  language: string | null;
+  handedness: string | null;
+}
+
+export interface EsportsTeamDetail {
+  team: EsportsTeam;
+  players: EsportsPlayer[];
+  fetchedAt: string;
+  fromCache: boolean;
+  warning: string | null;
+}
+
+export interface EsportsTournament {
+  id: string;
+  slug: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface EsportsStanding {
+  stage: string;
+  section: string;
+  ordinal: number;
+  teamName: string;
+  teamCode: string;
+  teamImageUrl: string;
+  wins: number | null;
+  losses: number | null;
+}

@@ -340,9 +340,11 @@ $report.runes = [ordered]@{
 # OP.GG) sont des caches distincts, ignorés par cette vérification Data Dragon.
 $riotCacheDir = Join-Path $CacheDir "riot"
 $metaCacheDir = Join-Path $CacheDir "meta"
+$esportsCacheDir = Join-Path $CacheDir "esports"
 $unexpected = @(Get-ChildItem -LiteralPath $CacheDir -File -Recurse | Where-Object {
         $_.FullName -notlike "$riotCacheDir\*" -and
         $_.FullName -notlike "$metaCacheDir\*" -and
+        $_.FullName -notlike "$esportsCacheDir\*" -and
         $_.Name -notin @("meta.json", "champion.json", "item.json", "runesReforged.json") -and
         $_.Extension -notin @(".png", ".jpg") -and
         $_.Name -notlike "*.tmp*" -and
