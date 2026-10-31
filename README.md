@@ -129,14 +129,14 @@ progression.
 
 1. Ouvrez la page **[Dernière release](https://github.com/Tomoushie/LoL-Companion/releases/latest)**.
 2. Téléchargez **un** des fichiers :
-   - **`LoL BOT_0.9.0_x64-setup.exe`** — installateur NSIS, **recommandé** ;
-   - **`LoL BOT_0.9.0_x64_en-US.msi`** — paquet MSI pour les déploiements Windows ;
+   - **`LoL.BOT_0.9.0_x64-setup.exe`** — installateur NSIS, **recommandé** ;
+   - **`LoL.BOT_0.9.0_x64_en-US.msi`** — paquet MSI pour les déploiements Windows ;
    - **`lol-bot.exe`** — exécutable portable (aucune installation).
 3. Lancez l'installateur (ou l'exe portable) et ouvrez **LoL BOT**.
 4. Vérifiez éventuellement l'intégrité avec **`SHA256SUMS`** (fourni avec la release) :
 
 ```powershell
-Get-FileHash -Algorithm SHA256 ".\LoL BOT_0.9.0_x64-setup.exe"
+Get-FileHash -Algorithm SHA256 ".\LoL.BOT_0.9.0_x64-setup.exe"
 ```
 
 Le fichier `SHA256SUMS` contient les empreintes SHA-256 des trois fichiers publiés.
